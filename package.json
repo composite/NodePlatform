@@ -1,0 +1,26 @@
+{
+  "main": "index.html",
+  "name": "NodePlatform",
+  "description": "A CRUD Demo for node-webkit",
+  "version": "0.1.0",
+  "keywords": [ "demo", "node-webkit" ],
+  "user-agent" : "Mozilla/5.0 (Linux; Windows; Mac) AppleWebKit/535.19 (KHTML, like Gecko) NodePlatformClient/1.0",
+  "chromium-args" : "--enable-webgl --ignore-gpu-blacklist",
+  "window": {
+    "title": "NodePlatform",
+    //"icon": "link.png",
+    "toolbar": false,
+    //"frame": false,
+    //"transparent": true,
+    "width": 800,
+    "height": 500,
+    "position": "mouse",
+    "min_width": 800,
+    "min_height": 400//,
+    //"max_width": 800,
+    //"max_height": 600
+  },
+  "webkit": {
+    "plugin": true
+  }
+}

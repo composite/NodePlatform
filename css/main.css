@@ -1,0 +1,51 @@
+@font-face {font-family: 'Nanum Gothic'; font-style: normal; font-weight: 700; src: url(../fonts/NanumGothic-Bold.woff2) format('woff2'), url(../fonts/NanumGothic-Bold.woff) format('woff'); }
+@font-face {font-family: 'Nanum Gothic'; font-style: normal; font-weight: 400; src: url(../fonts/NanumGothic-Regular.woff2) format('woff2'), url(../fonts/NanumGothic-Regular.woff) format('woff'); }
+@font-face {font-family: 'Nanum Gothic'; font-style: normal; font-weight: 800; src: url(../fonts/NanumGothic-ExtraBold.woff2) format('woff2'), url(../fonts/NanumGothic-ExtraBold.woff) format('woff'); }
+html,body,div,p,td,th,legend,h1,h2,h3,h4,h5,h6,input,textarea,option,button{font-family:'Nanum Gothic',NanumGothic,'나눔고딕',ng,'malgun gothic',sans-serif;-webkit-font-smoothing:antialiased;}
+th,legend,h1,h2,h3,h4,h5,h6{font-weight:700;}
+h1,h2{font-weight:800;-webkit-user-select: none;}
+input,button,select,textarea,iframe{-webkit-app-region: no-drag;}
+
+html,body{overflow:hidden;background:transparent !important;}
+
+.tl{text-align: left;}.tc{text-align: center;}.tr{text-align: right;}.tj{text-align: justify;}
+.tl input{text-align: left;}.tc input{text-align: center;}.tr input{text-align: right;}.tj input{text-align: justify;}
+
+body>header,body>section,body>footer{
+	position:absolute;
+	left:0;right:0;
+	overflow:hidden;
+}
+body>header{
+	-webkit-app-region: drag;
+	top:0;height:60px;
+	background-color:#fee;
+	padding:0 1em;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+}
+
+body>section{
+	top:60px;bottom:36px;
+	background-color:#efe;
+
+}
+body>footer{
+	bottom:0;height:36px;
+	background-color:#eef;
+	padding:0 1em;
+	border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px;
+}
+
+#myGrid {
+  width:100%;height:100%;
+  background: white;
+  outline: 0;
+  border: 1px solid gray;
+}
+.search-bar{
+	margin-top:1em;
+}
+.dex{margin-top:.2em;}
+.dex button{width:6em;}
