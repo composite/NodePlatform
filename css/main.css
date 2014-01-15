@@ -49,3 +49,7 @@ body>footer{
 }
 .dex{margin-top:.2em;}
 .dex button{width:6em;}
+
+#modalContent{
+	white-space:pre-wrap;
+}

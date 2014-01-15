@@ -44,6 +44,19 @@
 			</div>
 		</div>
 	</footer>
+	<div class="modal" id="commonMotal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="modalTitle">제목</h4>
+				</div>
+				<div class="modal-body" id="modalContent">내용</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" id="closeButton" data-dismiss="modal">확인</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<script>
 	window.addEventListener('keyup',function(e){
 		var win = require('nw.gui').Window.get();
@@ -75,6 +88,34 @@
 	<script type="text/javascript" src="js/data.js"></script>
 	<script type="text/javascript">
 	$(function(){
+
+		function msgbox(content, title, buttons){
+			$('#modalContent').html(content);
+			$('#modalTitle').html(title);
+			$modal = $('#commonMotal');
+			buttons = buttons || {};
+
+			var $btns = $modal.find('.modal-footer>button').not('#closeButton').remove().end().end();
+			for(var label in buttons){
+				if(label=='close'){
+					$('#closeButton')[!!buttons[label] ? 'show' : 'hide']();
+					continue;
+				}
+				var $btn = $('<button type="button" class="btn btn-default" ></button>')
+					.text(label)
+					.click(buttons[label])
+					.appendTo($btns);
+			}
+
+			$modal.modal({
+				backdrop: 'static',
+				keyboard: false
+			});
+		}
+		msgbox.close = function(){
+			$('#commonMotal').modal('hide');
+		}
+
 		//공통코드
 		var gender = ['남', '여']
 			,part = ['총무팀','인사팀','영업팀','개발팀','홍보팀','경영지원팀']
@@ -182,7 +223,8 @@
 				"age": 20,
 				"part": "총무팀",
 				"rank": "사원",
-				"join": [now.getFullYear(), ('00'+(now.getMonth()+1)).slice(-2), ('00'+(now.getDate())).slice(-2)].join('-')
+				"join": [now.getFullYear(), ('00'+(now.getMonth()+1)).slice(-2), ('00'+(now.getDate())).slice(-2)].join('-'),
+				"isNew": true //DB에 없는 값 의미
 			};
 			$.extend(item, args.item);
 			dataView.addItem(item);
@@ -255,13 +297,22 @@
 			//선택된 위치 수집
 			var selectedRows = grid.getSelectedRows(), ids = [];
 
+			if(!selectedRows.length){
+				msgbox('삭제할 항목을 선택해 주세요.', '삭제', {close:true});
+				return;
+			}
+
 			//선택된 위치의 값 수집
 			selectedRows.forEach(function(idx){
 				var item = dataView.getItemByIdx(idx);
 				if(item){
 					ids.push(item.id);
-					//삭제 대기열 추가
-					commit.remove.push(item);
+
+					if(!item.isNew){
+						//DB에 있는 항목만 삭제 대기열 추가
+						commit.remove.push(item);
+					}
+
 					//삽입 및 수정 대기열 있으면 삭제
 					var idx;
 					if(~(idx=commit.insert.indexOf(item))){
@@ -272,7 +323,7 @@
 						delete commit.update[idx];
 						commit.update.length--;
 					}
-					console.log(commit);
+					//console.log(commit);
 				}
 			});
 
@@ -288,6 +339,13 @@
 		});
 		//저장 버튼
 		$('#btn_save').click(function(){
+
+			//UPDATE 는 쓰레기 값이 들어가 있기 때문에 필터링 후 개수 세기.
+			if(!(commit.insert.length + commit.update.filter(function(a){return a;}).length + commit.remove.length)){
+				msgbox('저장할 항목이 없습니다.', '저장', {close:true});
+				return;
+			}
+
 			//선택 상태 적용
 			grid.getEditorLock().commitCurrentEdit();
 
@@ -346,6 +404,8 @@
 				//어자피 새로고침 할거니 취소버튼 기능 실행
 				$('#btn_cancel').click();
 			});
+			beforeProcess(true);
+			afterProcess.isSave = true;
 		});
 		//취소 버튼
 		$('#btn_cancel').click(function(){
@@ -379,14 +439,34 @@
 					name: form[0].elements.search.value
 				});
 				dataView.endUpdate();
+				afterProcess();
 			});
-			
+			beforeProcess();
 		});
-		function beforeProcess(){
-
+		//불러오거나 저장하기 전 프로세스
+		function beforeProcess(save){
+			if(beforeProcess.called){
+				return;
+			}else{
+				beforeProcess.called = true;
+			}
+			$('button').prop('disabled',true);
+			if(save){
+				msgbox('저장 중...', '저장', {close:false});
+			}
 		}
+		//불러오거나 저장한 후 프로세스
 		function afterProcess(){
 
+			$('button').prop('disabled',false);
+			beforeProcess.called = false;
+
+			if(afterProcess.isSave){
+				msgbox('저장되었습니다.', '저장', {close:true});
+				afterProcess.isSave = false;
+			}else{
+				msgbox.close();
+			}
 		}
 	});
 </script>
