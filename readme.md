@@ -9,7 +9,7 @@
 
 ## How to run this app
 
- - Download [https://github.com/rogerwang/node-webkit](node-webkit) in downloads section.
+ - for node-webkit download when do you not have, go [https://github.com/rogerwang/node-webkit](node-webkit) and see downloads section.
  - `git clone` or Download zip this project.
  - uncompress at any folder do you like
  - run `nw.exe PROJECT_PATH` or drag project folder to nw.exe on windows.
