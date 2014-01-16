@@ -19,6 +19,11 @@
  - this is __quick and dirty__ solution. If do you like this project and apply to real world, you'll need refactory this project.
  - visit [node-webkit wiki](https://github.com/rogerwang/node-webkit/wiki) for more infomation about what framework is, deploy, etc.
 
+## TODO
+
+ - International support for foreigner. (thanks to Wang for starred this project.)
+ - Excel download support
+
 # NodePlatform: node-webkit 로 만든 비즈니스 플랫폼 데모
 
 ## 특징
@@ -46,3 +51,11 @@
 ### 도저히 이 데모를 실행할줄 모르겠어. 이게 뭔지도 몰라. 도와줘!
 
 [그림으로 설명해준다. 날 클릭하라.](https://github.com/composite/NodePlatform/wiki)
+
+### 윈도우 사용자를 위해 내가 배려해줬다. 단일 실행 파일 배포한다.
+
+[단일 실행파일 다운로드](http://www.solidfiles.com/d/c5df88cb09/)
+
+그냥 다운받고 실행만 하면 화면 띄워질거다.
+
+오늘로부터 90일 이후 삭제된다. 파일 삭제된거 확인되면 내린다.
