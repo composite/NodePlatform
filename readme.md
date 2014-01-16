@@ -19,6 +19,14 @@
  - this is __quick and dirty__ solution. If do you like this project and apply to real world, you'll need refactory this project.
  - visit [node-webkit wiki](https://github.com/rogerwang/node-webkit/wiki) for more infomation about what framework is, deploy, etc.
 
+## Used projects in this app
+
+ - [node-webkit](https://github.com/rogerwang/node-webkit) (absolutely.)
+ - [jQuery](http://jquery.com/) 2.0.3
+ - [Bootstrap](http://getbootstrap.com/) 3.0.3
+ - [Cosmo](http://bootswatch.com/cosmo/) theme by [Bootswatch](http://bootswatch.com/)
+ - [SlickGrid](https://github.com/mleibman/SlickGrid)
+
 ## TODO
 
  - International support for foreigner. (thanks to Wang for starred this project.)
