@@ -42,3 +42,7 @@
  - 이 솔루션은 크롬 내장 Web SQL Database 로 데이터를 보관한다. 원격 DB가 있으면 PHP, .NET, JSP 등으로 별도 구현해서 연결해야 한다.
    (물론 node.js 모듈로 다이렉트로 연결 가능하지만, 소스가 공개되는 자바스크립트 특성상 추천하지 않는다.)
  - 원격 접속을 지원하고자 한다면, [package.json](https://github.com/rogerwang/node-webkit/wiki/Manifest-format) 문서를 참고한다.
+
+## 도저히 이 데모를 실행할줄 모르겠어. 이게 뭔지도 몰라. 도와줘!
+
+[그림으로 설명해준다. 날 클릭하라.](https://github.com/composite/NodePlatform/wiki)
