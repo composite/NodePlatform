@@ -41,7 +41,7 @@
 	} msgbox.close = function(){};
 
     require('nw.gui').Window.get().on('close', function() {
-        if ((commit.insert.length + commit.update.filter(function(a){return a;}).length + commit.remove.length) && confirm('Something changed.\nAre you sure to exit?')) {
+        if (!(commit.insert.length + commit.update.filter(function(a){return a;}).length + commit.remove.length) || confirm('Are you sure to exit?\nUnsaved data will be lost.')) {
             this.close(true);
         }
     });
