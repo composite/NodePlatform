@@ -2,90 +2,107 @@
 <html>
 <head>
 	<meta charset="utf-8"/>
-	<title>Node-webkit Platform</title>
-	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"/>
-	<link rel="stylesheet" href="css/slickgrid/slick.grid.css" type="text/css"/>
-	<link rel="stylesheet" href="css/slickgrid/slick.bootstrap.css" type="text/css"/>
-	<link rel="stylesheet" href="css/slickgrid/slick.columnpicker.css" type="text/css"/>
+	<title>Node-webkit Platform v2</title>
+	<!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/normalize/3.0.2/normalize.min.css" type="text/css"/>-->
+	<link rel="stylesheet" href="https://cdn.rawgit.com/seogi1004/jui/develop/jui.min.css" type="text/css"/>
 	<link rel="stylesheet" href="css/main.css" type="text/css"/>
 	
 </head>
-<body>
+<body class="jui">
 	<header>
 		<form id="search_form" action="" method="post">
 			<div class="row">
-				<div class="col-sm-6 col-md-8">
-					<h3>인사정보관리</h3>
+				<div class="col col-6">
+					<h2>Human Resource Management</h2>
 				</div>
-				<div class="col-sm-6 col-md-4">
-					<div class="input-group input-group-sm search-bar">
-						<input type="search" name="search" class="form-control">
-						<span class="input-group-btn">
-							<button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span> 검색</button>
-						</span>
-					</div>
+				<div class="col col-6 tr">
+                    <div class="group group-rect search-bar">
+                        <input type="search" name="search" class="input input-black">
+                        <button type="submit" class="btn btn-black" >Search</button>
+                    </div>
 				</div>
 			</div>
 		</form>
 	</header>
 	<section>
-		<div id="myGrid" class="grid"></div>
+        <div id="myGrid" class="xtable xtable-rect">
+            <table class="table table-simple table-headline">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>Address</th>
+                    <th>Age</th>
+                    <th>Department</th>
+                    <th>Rank</th>
+                    <th>Hired Date</th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <script data-jui="#myGrid" data-tpl="row" type="text/template">
+            <tr>
+                <td><!= name !></td>
+                <td><!= gender !></td>
+                <td><!= city !></td>
+                <td><!= age !></td>
+                <td><!= part !></td>
+                <td><!= rank !></td>
+                <td><!= join !></td>
+            </tr>
+        </script>
+        <script data-jui="#myGrid" data-tpl="none" type="text/template">
+            <tr>
+                <td colspan="7" class="none">Data does not exist.</td>
+            </tr>
+        </script>
+        <script data-jui="#myGrid" data-tpl="loading" type="text/template">
+            <div class="loading"></div>
+        </script>
+        <input type="file" id="excelDownAs" nwsaveas="insa.csv" accept="text/csv" tabindex="-1" class="hid" />
 	</section>
 	<footer>
 		<div class="row dex">
-			<div class="col-sm-3 tl">
-				<button type="button" id="btn_excel" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-save"></span> 엑셀</button>
+			<div class="col col-3 tl">
+				<button type="button" id="btn_excel" class="btn btn-black btn-flat btn-rect"><span class="icon-table"></span> Export</button>
 			</div>
-			<div class="col-sm-9 tr">
-				<button type="button" id="btn_insert" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-plus"></span> 신규</button>
-				<button type="button" id="btn_delete" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-minus"></span> 삭제</button>
-				<button type="button" id="btn_save" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-floppy-saved"></span> 저장</button>
-				<button type="button" id="btn_cancel" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-floppy-remove"></span> 취소</button>
+			<div class="col col-9 tr">
+				<button type="button" id="btn_insert" class="btn btn-gray btn-flat btn-rect"><span class="icon-plus"></span> Insert</button>
+				<button type="button" id="btn_delete" class="btn btn-gray btn-flat btn-rect"><span class="icon-minus"></span> Remove</button>
+				<button type="button" id="btn_save" class="btn btn-gray btn-flat btn-rect"><span class="icon-download"></span> Save</button>
+				<button type="button" id="btn_cancel" class="btn btn-gray btn-flat btn-rect"><span class="icon-close"></span> Cancel</button>
 			</div>
 		</div>
 	</footer>
-	<div class="modal" id="commonMotal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title" id="modalTitle">제목</h4>
-				</div>
-				<div class="modal-body" id="modalContent">내용</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" id="closeButton" data-dismiss="modal">확인</button>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="msgbox" id="commonMotal" tabindex="-1">
+        <div class="head" id="modalTitle">Title</div>
+        <div class="body">
+            <div id="modalContent">Content</div>
+            <div id="modalButtons" class="tc" style="margin-top: 45px;">
+                <button type="button" id="closeButton" class="btn btn-gray btn-flat btn-rect btn-small">닫기</button>
+            </div>
+        </div>
+    </div>
 	<script>
 	window.addEventListener('keyup',function(e){
 		var win = require('nw.gui').Window.get();
 		switch(e.which){
-			case 123:win.showDevTools();break; //개발자도구
-			case 116:win.reload();break; // 새로고침
+            case 112: //F1 도움말
+                alert([
+                        "You can click save button to save data permanently.",
+                        "F5 to Refresh this page.",
+                        "F12 to show DevTool"
+                ].join('\n'));
+                break;
+			case 123:win.showDevTools();break; // F12 : 개발자도구
+			case 116:win.reload();break; // F5 : 새로고침
 		}
 	});
 	</script>
-	<script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
-	<script type="text/javascript" src="js/jquery-migrate-1.2.1.min.js"></script>
-	<script type="text/javascript" src="js/jquery-ui-1.10.3.min.js"></script>
-	<script type="text/javascript" src="js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="js/assets/jquery.event.drag-2.2.js"></script>
-	<script type="text/javascript" src="js/slickgrid/slick.core.js"></script>
-	<script type="text/javascript" src="js/slickgrid/plugins/slick.checkboxselectcolumn.js"></script>
-	<script type="text/javascript" src="js/slickgrid/plugins/slick.autotooltips.js"></script>
-	<script type="text/javascript" src="js/slickgrid/plugins/slick.cellrangedecorator.js"></script>
-	<script type="text/javascript" src="js/slickgrid/plugins/slick.cellrangeselector.js"></script>
-	<script type="text/javascript" src="js/slickgrid/plugins/slick.cellcopymanager.js"></script>
-	<script type="text/javascript" src="js/slickgrid/plugins/slick.cellselectionmodel.js"></script>
-	<script type="text/javascript" src="js/slickgrid/plugins/slick.rowselectionmodel.js"></script>
-	<script type="text/javascript" src="js/slickgrid/controls/slick.columnpicker.js"></script>
-	<script type="text/javascript" src="js/slickgrid/slick.formatters.js"></script>
-	<script type="text/javascript" src="js/slickgrid/slick.editors.js"></script>
-	<script type="text/javascript" src="js/slickgrid/slick.dataview.js"></script>
-	<script type="text/javascript" src="js/slickgrid/slick.grid.js"></script>
-	<script type="text/javascript" src="js/slickgrid/slick.bootstrap.js"></script>
-	<script type="text/javascript" src="js/data.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/seogi1004/jui/develop/jui.min.js"></script>
+    <script type="text/javascript" src="js/data.js"></script>
 
 	<script type="text/javascript" src="js/main.js"></script>
 </body>
