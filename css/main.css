@@ -12,7 +12,7 @@ html,body{overflow:hidden;background:transparent !important;}
 .tl{text-align: left;}.tc{text-align: center;}.tr{text-align: right;}.tj{text-align: justify;}
 .tl input{text-align: left;}.tc input{text-align: center;}.tr input{text-align: right;}.tj input{text-align: justify;}
 .hid{display:none;}
-.b{font-width: bold;}.u{text-decoration: underline;}.s{text-decoration: line-through;}
+.b{font-weight: bold;}.u{text-decoration: underline;}.s{text-decoration: line-through;}
 
 body>header,body>section,body>footer{
 	position:absolute;

@@ -1,5 +1,7 @@
 # NodePlatform: nw.js Business content platform demo
 
+![ScreenShot](https://raw.githubusercontent.com/composite/NodePlatform/master/images/NodePlatformV2.png)
+
 ## Features
 
  - Based on nw.js (web-based, run anywhere)
